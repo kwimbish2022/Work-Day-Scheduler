@@ -1,5 +1,3 @@
-// let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
-
 // Function that gets the most current date
 var currentTime = function(){
     date = moment(new Date());
@@ -13,12 +11,4 @@ $(document).ready(function(){
 });
 
 currentTime();
-
-// create load function to display
-// function date() {
-//   var today = moment().format('dddd, MMMM, YYYY');
-//   todaysDate.innerHTML = today;
-//   console.log(date);
-// }
-// date();
 
