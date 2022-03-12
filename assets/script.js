@@ -38,18 +38,34 @@ function setColor(element, color) {
 // add event listener to save buttons
 var saveBtn = document.querySelectorAll('.saveBtn');
 for (var i = 0; i < saveBtn.length; i++) {
-  saveBtn[i].addEventListener("click", saveInfo);
+  saveBtn[i].addEventListener("click", submitInfo);
 }
 
-// save to local storage
-function saveInfo() {
-  var textInput = this.parentElement.value;
-  var key = this.parentElement.getAttribute('id');
-  localStorage.getItem(key, textInput);
-  console.log(saveInfo);
+// submit to local storage
+function submitInfo(event) {
+  event.preventDefault();
+  const str = `txt${event.target.id.slice(3)}`; // template literal
+  const elementText = document.getElementById(str).value;
+  saveToLocal(str, elementText);
 }
 
-for (var i =9; i < 18; i++) {
-  var textVal = localStorage.getItem(i);
-  document.getElementById(i).value = textVal;
+function saveToLocal (key, value){
+  //Stringify object into saveable items
+  var saveableValue = JSON.stringify(value);
+  //Save key highscores with value from saveableValue
+  localStorage.setItem(key, saveableValue);
 }
+
+function getInfo(){
+  //Get item from local storage
+  for (var i = 0; i < 9; i++) {
+    var id = `txt${i}`;
+    var localStorageItem = localStorage.getItem(id);
+    var data = JSON.parse(localStorageItem);
+    console.log(data);
+    if (data !== null) {
+      document.getElementById(id).value = data;
+    }
+  }
+}
+getInfo();
